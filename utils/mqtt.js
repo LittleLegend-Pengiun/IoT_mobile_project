@@ -24,6 +24,8 @@ client.on('message', (topic, message, packet) => {
     
 });
 
+client.publish("minmin/feeds/bbc-led", "2");
+
 client.subscribe('minmin/feeds/bbc-led');
 
 export default client;

@@ -11,8 +11,7 @@ const HomeScreen = () => {
   client.on("message", (topic, message, _) => {
     setValue(`Data from topic: ${topic} changed to ${message}`)
   })
-
-  client.publish("minmin/feeds/bbc-led", "2");
+  
   return (
     <View className="flex-1 items-center justify-center">
         <Text>Home Screen</Text>
