@@ -1,7 +1,8 @@
 import mqtt from "precompiled-mqtt";
+import { key } from "./secret";
 
 const username = "hoanganhle"
-const key = "aio_blxW26KUc7lSAn86jJT79G1XM5zf"
+
 const brokerUrl = `mqtts://${username}:${key}@io.adafruit.com`
 const options = {
     port: 443
@@ -17,7 +18,7 @@ client.on('disconnect', () => {
 })
 
 client.on('message', (topic, message, packet) => {
-        console.log("Received '" + message + "' on '" + topic + "'");
+    console.log("Received '" + message + "' on '" + topic + "'");
 });
 
 client.subscribe('hoanganhle/feeds/bbc-led');

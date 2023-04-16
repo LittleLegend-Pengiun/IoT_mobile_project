@@ -125,3 +125,13 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# Adafruit key
+utils/secret.js
+
+# dot expo
+.expo/
+
+# pacakge lock, yarn lock
+package-lock.json
+yarn-lock.json
