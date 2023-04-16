@@ -1,7 +1,7 @@
 import mqtt from "precompiled-mqtt";
 import { key } from "./secret";
 
-const username = "hoanganhle"
+const username = "minmin"
 
 const brokerUrl = `mqtts://${username}:${key}@io.adafruit.com`
 const options = {
@@ -18,9 +18,12 @@ client.on('disconnect', () => {
 })
 
 client.on('message', (topic, message, packet) => {
-    console.log("Received '" + message + "' on '" + topic + "'");
+    console.log(`Data from topic: ${topic} changed to ${message}`);
+    //TODO: implement input data change here
+
+    
 });
 
-client.subscribe('hoanganhle/feeds/bbc-led');
+client.subscribe('minmin/feeds/bbc-led');
 
 export default client;

@@ -1,13 +1,24 @@
-import { View, Text } from 'react-native'
+import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
+import Speedometers from '../components/Speedometer';
+import Switches from '../components/Switches';
+import client from '../utils/mqtt';
+
 
 const HomeScreen = () => {
-  const [value, setValue] = useState("0");
+  const [value, setValue] = useState("");
 
+  client.on("message", (topic, message, _) => {
+    setValue(`Data from topic: ${topic} changed to ${message}`)
+  })
+
+  client.publish("minmin/feeds/bbc-led", "2");
   return (
     <View className="flex-1 items-center justify-center">
-      <Text>Home Screen</Text>
-      <Text>{value}</Text>
+        <Text>Home Screen</Text>
+        <Speedometers />
+        <Switches />
+        <Text className="text-xl">Notification: {value}</Text>
     </View>
   )
 }
