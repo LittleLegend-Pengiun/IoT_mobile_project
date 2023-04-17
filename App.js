@@ -1,16 +1,19 @@
 import HomeScreen from './screens/HomeScreen';
 import ChartScreen from './screens/ChartScreen';
+import HistoryScreen from './screens/HistoryScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { store } from './store';
+import { Provider } from 'react-redux';
 
-import client from './utils/mqtt';
-import HistoryScreen from './screens/HistoryScreen';
 
 const Tab = createBottomTabNavigator();
 
+
 export default function App() {
   return (
+    <Provider store={store}>
     <NavigationContainer>
       <Tab.Navigator
       screenOptions={({ route }) => ({
@@ -42,5 +45,6 @@ export default function App() {
         options={{presentation: "transparentModal", headerShown: false}}/>
       </Tab.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }

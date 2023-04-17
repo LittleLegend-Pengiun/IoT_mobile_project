@@ -1,12 +1,11 @@
 import mqtt from "precompiled-mqtt";
-import { key } from "./secret";
-
-const username = "minmin"
+import { key, username } from "./secret";
 
 const brokerUrl = `mqtts://${username}:${key}@io.adafruit.com`
 const options = {
     port: 443
 }
+const feedketList = ["button1", "button2", "sensor1", "sensor2", "sensor3", "sensor4", "ai"]
 console.log(brokerUrl)
 console.log(key)
 const client = mqtt.connect(brokerUrl,options);
@@ -15,17 +14,16 @@ client.on('connect', () => {
 });
 client.on('disconnect', () => {
     console.log("Disconnected to Adafruit!")
-})
-
-client.on('message', (topic, message, packet) => {
-    console.log(`Data from topic: ${topic} changed to ${message}`);
-    //TODO: implement input data change here
-
-    
 });
 
-client.publish("minmin/feeds/bbc-led", "2");
+feedketList.forEach((key) => {
+    client.subscribe(`${username}/feeds/${key}`);
+})
 
-client.subscribe('minmin/feeds/bbc-led');
+export const getMQTTMessage = () => {
+    client.on("message", (topic, message, _) => {
+        console.log("Message from", topic, "with content", + message);
+    })
+}
 
 export default client;

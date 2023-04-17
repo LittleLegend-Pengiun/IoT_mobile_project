@@ -2,14 +2,14 @@ import { View, Text, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import Speedometers from '../components/Speedometer';
 import Switches from '../components/Switches';
-import client from '../utils/mqtt';
+import { getMQTTMessage } from '../utils/mqtt';
 
 
 const HomeScreen = () => {
   const [value, setValue] = useState("");
 
-  client.on("message", (topic, message, _) => {
-    setValue(`Data from topic: ${topic} changed to ${message}`)
+  useEffect(() => {
+    getMQTTMessage();
   })
   
   return (
