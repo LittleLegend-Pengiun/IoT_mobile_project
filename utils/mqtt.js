@@ -20,10 +20,9 @@ feedketList.forEach((key) => {
     client.subscribe(`${username}/feeds/${key}`);
 })
 
-export const getMQTTMessage = () => {
-    client.on("message", (topic, message, _) => {
-        console.log("Message from", topic, "with content", + message);
-    })
-}
+
+client.on("message", (topic, message, _) => {
+    console.log("Message from", topic, "with content", + message);
+})
 
 export default client;
