@@ -21,8 +21,4 @@ feedketList.forEach((key) => {
 })
 
 
-client.on("message", (topic, message, _) => {
-    console.log("Message from", topic, "with content", + message);
-})
-
 export default client;

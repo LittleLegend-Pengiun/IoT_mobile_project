@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const pumpSlice = createSlice({
     name: 'pump',
     initialState: {
-        value: "",
+        value: "NaN",
         init: false,
     },
     reducers: {

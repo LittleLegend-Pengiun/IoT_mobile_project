@@ -2,15 +2,20 @@ import React from 'react'
 import { Button, Text, View } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { getLedInit, getLedValue, updateLed } from '../redux/ledSlice'
+import { getPumpValue } from '../redux/pumpSlice'
+import { getTempInit, getTempValue } from '../redux/tempSlice'
 
 function Switches() {
   const hasData = useSelector(getLedInit);
-  const value = useSelector(getLedValue);
+  const value = useSelector(getPumpValue);
+  const hasTemp = useSelector(getTempInit);
+  const temp = useSelector(getTempValue);
   const dispatch = useDispatch();
 
   return (
     <View>
-      <Text>Switches {value}</Text>
+      <Text>Switches {hasData? value: "loading"}</Text>
+      <Text>Temp {hasTemp? temp[temp.length-1][1]: "loading"}</Text>
       <Button
         title='Change value'
         onPress={() => {

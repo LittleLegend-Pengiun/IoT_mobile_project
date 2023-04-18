@@ -17,4 +17,8 @@ export const store = configureStore({
     moisture: moistureReducer,
     light: lightReducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: { warnAfter: 128 },
+    serializableCheck: { warnAfter: 128 },
+  })
 })

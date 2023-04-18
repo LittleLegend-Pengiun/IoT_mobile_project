@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const ledSlice = createSlice({
     name: 'led',
     initialState: {
-        value: "",
+        value: "NaN",
         init: false,
     },
     reducers: {
