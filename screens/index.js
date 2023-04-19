@@ -1,13 +1,12 @@
-import HomeScreen from './screens/HomeScreen';
-import ChartScreen from './screens/ChartScreen';
-import HistoryScreen from './screens/HistoryScreen';
+import HomeScreen from './HomeScreen';
+import ChartScreen from './ChartScreen';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
-export default function IotApp() {
+export default function AppScreens() {
   return (
     <NavigationContainer>
       <Tab.Navigator
@@ -26,17 +25,16 @@ export default function IotApp() {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={35} color={color} />;
         },
         tabBarActiveTintColor: 'green',
         tabBarInactiveTintColor: 'gray',
+        tabBarShowLabel: false,
       })}
       >
         <Tab.Screen name="Home" component={HomeScreen} 
         options={{presentation: "transparentModal", headerShown: false}}/>
         <Tab.Screen name="Charts" component={ChartScreen} 
-        options={{presentation: "transparentModal", headerShown: false}}/>
-        <Tab.Screen name="History" component={HistoryScreen} 
         options={{presentation: "transparentModal", headerShown: false}}/>
       </Tab.Navigator>
     </NavigationContainer>
