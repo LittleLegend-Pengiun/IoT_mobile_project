@@ -3,19 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 export const ledSlice = createSlice({
     name: 'led',
     initialState: {
-        value: "NaN",
-        init: false,
+        value: [],
     },
     reducers: {
         updateLed: (state, action) => {
-            state.value = action.payload;
-            state.init = true;
+            state.value = [...[{value: action.payload}]];
+        },
+        initLed: (state, action) => {
+            state.value = [...action.payload];
         }
     }
 });
 
-export const { updateLed } = ledSlice.actions;
-export const getLedInit = (state) => state.led.init;
-export const getLedValue = (state) => state.led.value;
+export const { updateLed, initLed } = ledSlice.actions;
+export const getLedInit = (state) => state.led.value.length? true : false;
+export const getLedValue = (state) => {
+    if (state.led.value.length) {
+        return state.led.value[0].value;
+    }
+    return []
+};
 
 export default ledSlice.reducer;

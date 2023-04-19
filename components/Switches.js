@@ -7,7 +7,7 @@ import { getTempInit, getTempValue } from '../redux/tempSlice'
 
 function Switches() {
   const hasData = useSelector(getLedInit);
-  const value = useSelector(getPumpValue);
+  const value = useSelector(getLedValue);
   const hasTemp = useSelector(getTempInit);
   const temp = useSelector(getTempValue);
   const dispatch = useDispatch();

@@ -3,19 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 export const pumpSlice = createSlice({
     name: 'pump',
     initialState: {
-        value: "NaN",
-        init: false,
+        value: []
     },
     reducers: {
         updatePump: (state, action) => {
-            state.value = action.payload;
-            state.init = true;
+            state.value = [...[{value: action.payload}]]
+        },
+        initPump: (state, action) => {
+            state.value = [...action.payload];
         }
     }
 });
 
-export const { updatePump } = pumpSlice.actions;
-export const getPumpInit = (state) => state.pump.init;
-export const getPumpValue = (state) => state.pump.value;
+export const { updatePump, initPump } = pumpSlice.actions;
+export const getPumpInit = (state) => state.pump.value.length? true : false;
+export const getPumpValue = (state) => {
+    if (state.pump.value.length) {
+        return state.pump.value[0].value;
+    }
+    return []
+}
 
 export default pumpSlice.reducer;

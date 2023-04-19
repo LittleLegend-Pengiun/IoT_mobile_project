@@ -1,23 +1,23 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { updateLed } from '../redux/ledSlice';
-import { updatePump } from '../redux/pumpSlice';
+import { initLed } from '../redux/ledSlice';
+import { initPump, updatePump } from '../redux/pumpSlice';
 import { updateTemp } from '../redux/tempSlice';
 import { updateMoisture } from '../redux/moistureSlice';
 import { updateHumid } from '../redux/humidSlice';
 import { updateLight } from '../redux/lightSlice';
-import { updateTree } from '../redux/treeSlice';
+import { initTree, updateTree } from '../redux/treeSlice';
 import { fetchData } from '../utils/helper';
 import { username } from '../utils/secret';
-import axios from 'axios';
 
 
 const InitComp = () => {
   const dispatch = useDispatch(); 
   
   async function getData(topic, dpCallback) {
-    return;
-    
+    const res = await fetchData(`https://io.adafruit.com/api/v2/${topic}/data`)
+    if (res == null) throw Error("Network error");
+    dispatch(dpCallback(res));
   }
 
   async function getDataChart(topic, dpCallback) {
@@ -30,10 +30,10 @@ const InitComp = () => {
   useEffect(() => {
     try {
         // LED
-        getData(`${username}/feeds/button1`, updateLed);
+        getData(`${username}/feeds/button1`, initLed);
     
         // PUMP
-        getData(`${username}/feeds/button2`, updatePump);
+        getData(`${username}/feeds/button2`, initPump);
     
         // Temp
         getDataChart(`${username}/feeds/sensor1`, updateTemp);
@@ -48,7 +48,7 @@ const InitComp = () => {
         getDataChart(`${username}/feeds/sensor4`, updateLight);
 
         // AI
-        getData(`${username}/feeds/ai`, updateTree);
+        getData(`${username}/feeds/ai`, initTree);
     } catch (err) {
         console.error(err);
     }
