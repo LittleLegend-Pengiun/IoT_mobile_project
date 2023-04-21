@@ -1,5 +1,5 @@
-import { View, Text, TouchableOpacity } from 'react-native'
-import React, { useEffect, useState } from 'react'
+import { View, Text, Button } from 'react-native'
+import React, { useState } from 'react'
 import CalendarTab from '../components/CalendarTab';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import AreaChart from '../components/AreaChart';
@@ -13,6 +13,8 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import InfoTabLite from '../components/InfoTabLite';
 import { getChartId } from '../redux/chosenChartSlice';
+import Modal from 'react-native-modal';
+
 
 const chartTitle = {
   temp: "Temperature",
@@ -31,6 +33,11 @@ const ChartScreen = () => {
   const lightValue = useSelector(getLightValue);
   const lightInit = useSelector(getLightInit);
   const chosenTab = useSelector(getChartId);
+  const [isModalVisible, setModalVisible] = useState(false);
+
+  const toggleModal = () => {
+    setModalVisible(!isModalVisible);
+  };
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
@@ -41,6 +48,7 @@ const ChartScreen = () => {
          iconName="calendar-o"
          IconComponent={FontAwesome}
          value="25-03-2023"
+         toggleModal={toggleModal}
         />
         <CalendarTab 
          id="end"
@@ -48,6 +56,7 @@ const ChartScreen = () => {
          iconName="calendar"
          IconComponent={FontAwesome}
          value="25-03-2023"
+         toggleModal={toggleModal}
         />
       </View>
       <View className="flex-row mx-2 px-1">
@@ -81,6 +90,8 @@ const ChartScreen = () => {
         />
       </View>
       </View>
+
+      {/* Chart */}
       <View className="pt-2 pb-2">
         <Text 
         className="font-bold text-lg text-center">
@@ -88,6 +99,19 @@ const ChartScreen = () => {
         </Text>
         <AreaChart xMin={1} xMax={5} yMin={0} yMax={40} />
       </View>
+
+      {/*popup modal*/}
+      <Modal isVisible={isModalVisible}
+       onBackButtonPress={() => toggleModal()}
+       onBackdropPress={() => setModalVisible(false)}
+      >
+        <View className="flex-1 align-middle justify-center items-center">
+          <View className="items-center justify-center align-middle h-36 w-3/4 bg-white rounded-lg">
+            <Text>Hello!</Text>
+            <Button title="Hide modal" onPress={toggleModal} />
+        </View>
+        </View>
+      </Modal>
     </View>
   )
 }
