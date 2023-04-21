@@ -1,8 +1,15 @@
 import React from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
+import { publishMQTT } from '../utils/mqtt';
+import { username } from '../utils/secret';
 
 function ControlSwitch({id, title, value, disable, IconComponent, iconOn, iconOff}) {
     const styling = value == "1"? "border-red-500 text-red-500": "border-green-500 text-green-500";
+
+    function handleButonPress() {
+      const rev = value == "1"? "0" : "1";
+      publishMQTT(`${username}/feeds/${id}`, rev);
+    }
   return (
     <View className="bg-gray-200 mx-4 py-4 my-4 flex-row  items-center rounded-md">
         <IconComponent name={value == "1"? iconOn: iconOff} size={30} 
@@ -17,6 +24,7 @@ function ControlSwitch({id, title, value, disable, IconComponent, iconOn, iconOf
         <TouchableOpacity 
          className={`${styling} px-4 py-2 border-2 mr-2 rounded-lg`}
          disabled={disable}
+         onPress={() => handleButonPress()}
         >
             <Text className={`${styling} font-bold text-center`}>{value == "1"? "TURN OFF": "TURN ON "}</Text>
         </TouchableOpacity>

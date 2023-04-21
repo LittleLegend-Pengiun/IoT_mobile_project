@@ -20,5 +20,8 @@ feedketList.forEach((key) => {
     client.subscribe(`${username}/feeds/${key}`);
 })
 
+export const publishMQTT = (topic, message) => {
+    client.publish(topic, message)
+}
 
 export default client;
