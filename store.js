@@ -6,8 +6,10 @@ import tempReducer from './redux/tempSlice'
 import humidReducer from './redux/humidSlice'
 import moistureReducer from './redux/moistureSlice'
 import lightReducer from './redux/lightSlice'
+import chosenChartReducer from './redux/chosenChartSlice'
 
-export const store = configureStore({
+export const store = configureStore(
+{
   reducer: {
     led: ledReducer,
     pump: pumpReducer,
@@ -16,6 +18,7 @@ export const store = configureStore({
     humid: humidReducer,
     moisture: moistureReducer,
     light: lightReducer,
+    chosenChart: chosenChartReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     immutableCheck: { warnAfter: 128 },
