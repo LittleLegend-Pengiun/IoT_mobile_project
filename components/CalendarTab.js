@@ -1,7 +1,9 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 
-const CalendarTab = ({id, title, iconName, IconComponent, value, setValue, toggleModal}) => {
+const monthName = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+
+const CalendarTab = ({id, title, iconName, IconComponent, value, toggleModal}) => {
   return (
     <TouchableOpacity 
     className={`bg-gray-200 flex-row rounded-lg m-1 px-3 py-5 h-24 w-1/2`}
@@ -12,7 +14,7 @@ const CalendarTab = ({id, title, iconName, IconComponent, value, setValue, toggl
        </View>
        <View className="relative mr-2 w-4/5">
            <Text className="font-bold pl-2 text-right right-1 top-0">{title}</Text>
-           <Text className="text-xl font-bold absolute bottom-0 right-1">{value}</Text>
+           <Text className="text-xl font-bold absolute bottom-0 right-1">{value.getDate() + "-" + monthName[value.getMonth()] + "-" + value.getFullYear()}</Text>
        </View>
    </TouchableOpacity>
   )

@@ -13,8 +13,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import InfoTabLite from '../components/InfoTabLite';
 import { getChartId } from '../redux/chosenChartSlice';
-import Modal from 'react-native-modal';
-
+import DateInputForm from '../components/DateInputForm';
 
 const chartTitle = {
   temp: "Temperature",
@@ -34,29 +33,34 @@ const ChartScreen = () => {
   const lightInit = useSelector(getLightInit);
   const chosenTab = useSelector(getChartId);
   const [isModalVisible, setModalVisible] = useState(false);
+  const [startDate, setStartDate] = useState(new Date());
+  const [endDate, setEndDate] = useState(new Date());
+  const [dateFnId, setDateFnId] = useState("start-date");
 
-  const toggleModal = () => {
+
+  const toggleModal = (id) => {
     setModalVisible(!isModalVisible);
+    setDateFnId(id);
   };
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
       <View className="flex-row mx-2 px-2">
         <CalendarTab 
-         id="start"
+         id="start-date"
          title="Start Date"
          iconName="calendar-o"
          IconComponent={FontAwesome}
-         value="25-03-2023"
-         toggleModal={toggleModal}
+         value={startDate}
+         toggleModal={() => toggleModal("start-date")}
         />
         <CalendarTab 
-         id="end"
+         id="end-date"
          title="End Date"
          iconName="calendar"
          IconComponent={FontAwesome}
-         value="25-03-2023"
-         toggleModal={toggleModal}
+         value={endDate}
+         toggleModal={() => toggleModal("end-date")}
         />
       </View>
       <View className="flex-row mx-2 px-1">
@@ -97,21 +101,30 @@ const ChartScreen = () => {
         className="font-bold text-lg text-center">
           {chartTitle[chosenTab]} chart
         </Text>
-        <AreaChart xMin={1} xMax={5} yMin={0} yMax={40} />
+        <AreaChart 
+         xMin={(new Date('2023-04-11T14:15:27Z')).getTime()} 
+         xMax={(new Date('2023-04-17T07:49:24Z')).getTime()} 
+         yMin={0} 
+         yMax={40}
+         chartData={[
+          { x: (new Date('2023-04-11T14:15:27Z')).getTime(), y: "31.0" },
+          { x: (new Date('2023-04-11T14:15:37Z')).getTime(), y: "31.0" },
+          { x: (new Date('2023-04-17T07:49:03Z')).getTime(), y: "31.2" },
+          { x: (new Date('2023-04-17T07:49:13Z')).getTime(), y: "31.2" },
+          { x: (new Date('2023-04-17T07:49:24Z')).getTime(), y: "31.0" },
+        ]} />
       </View>
 
       {/*popup modal*/}
-      <Modal isVisible={isModalVisible}
-       onBackButtonPress={() => toggleModal()}
-       onBackdropPress={() => setModalVisible(false)}
-      >
-        <View className="flex-1 align-middle justify-center items-center">
-          <View className="items-center justify-center align-middle h-36 w-3/4 bg-white rounded-lg">
-            <Text>Hello!</Text>
-            <Button title="Hide modal" onPress={toggleModal} />
-        </View>
-        </View>
-      </Modal>
+      {isModalVisible && 
+        <DateInputForm 
+         toggle={setModalVisible}
+         startDate={startDate}
+         endDate={endDate}
+         setDate={dateFnId == "start-date"? setStartDate :setEndDate}
+         mode={dateFnId}
+        />
+      }
     </View>
   )
 }
