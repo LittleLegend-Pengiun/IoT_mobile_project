@@ -7,10 +7,10 @@ export const ledSlice = createSlice({
     },
     reducers: {
         updateLed: (state, action) => {
-            state.value = [...[{value: action.payload}]];
+            state.value = [{value: action.payload}];
         },
         initLed: (state, action) => {
-            state.value = [...action.payload];
+            state.value = action.payload;
         }
     }
 });

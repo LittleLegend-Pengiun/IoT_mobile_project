@@ -7,10 +7,10 @@ export const pumpSlice = createSlice({
     },
     reducers: {
         updatePump: (state, action) => {
-            state.value = [...[{value: action.payload}]]
+            state.value = [{value: action.payload}]
         },
         initPump: (state, action) => {
-            state.value = [...action.payload];
+            state.value = action.payload;
         }
     }
 });

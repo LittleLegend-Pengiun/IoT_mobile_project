@@ -7,10 +7,10 @@ export const treeSlice = createSlice({
     },
     reducers: {
         updateTree: (state, action) => {
-            state.value = [...[{value: action.payload}]]
+            state.value = [{value: action.payload}]
         },
         initTree: (state, action) => {
-            state.value = [...action.payload]
+            state.value = action.payload
         }
     }
 });

@@ -7,7 +7,7 @@ export const humidSlice = createSlice({
     },
     reducers: {
         updateHumid: (state, action) => {
-            state.value = [...action.payload];
+            state.value = action.payload;
         }
     }
 })

@@ -7,7 +7,7 @@ export const tempSlice = createSlice({
     },
     reducers: {
         updateTemp: (state, action) => {
-            state.value = [...action.payload];
+            state.value = action.payload;
         }
     }
 })

@@ -7,7 +7,7 @@ export const moistureSlice = createSlice({
     },
     reducers: {
         updateMoisture: (state, action) => {
-            state.value = [...action.payload];
+            state.value = action.payload;
         }
     }
 })
