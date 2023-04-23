@@ -1,6 +1,6 @@
 # IoT_mobile_project
 
-### Note
+## Overview
 Use react native expo
 
 Require: [Nodejs LTS 16.18.0](https://nodejs.org/ko/blog/release/v16.18.0)
@@ -15,7 +15,7 @@ Run app on virtual device of Andriod studio
 npm run android
 ```
 
-### Demo
+## Demo
 
 Try the app [here](https://expo.dev/@hoanganhleboy/Iot_app?serviceType=classic&distribution=expo-go) or use your phone to scan the QR code below.
 <p align="center">
@@ -25,11 +25,12 @@ Try the app [here](https://expo.dev/@hoanganhleboy/Iot_app?serviceType=classic&d
 </p>
 
 **Note:**
+
 For Android device, please download [Expo Go](https://play.google.com/store/apps/details?id=host.exp.exponent&hl=en_US) for best experience.
 
 For iOS device, your built-in camera app is enough.
 
-### Preview Image
+## Preview Image
 
 <p align="center">
  <br>
