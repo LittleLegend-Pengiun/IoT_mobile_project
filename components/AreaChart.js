@@ -8,7 +8,7 @@ function AreaChart({ xMin, xMax, yMin, yMax, chartData }) {
   return (
     <View className="bg-inherit w-96 mx-3">
       <Chart
-        className="h-80 w-11/12 p-2 mx-3"
+        className="h-72 w-11/12 p-2 mx-3"
         data={chartData}
         padding={{ left: 30, bottom: 20, right: 20, top: 20 }}
         xDomain={{ min: xMin, max: xMax }}

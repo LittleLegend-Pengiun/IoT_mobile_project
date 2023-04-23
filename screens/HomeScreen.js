@@ -43,14 +43,14 @@ const HomeScreen = () => {
             title="Temperature"
             iconName="temperature-low"
             IconComponent={FontAwesome5}
-            value={tempInit? tempValue[tempValue.length-1][1] + '℃': "--/--"}
+            value={tempInit? parseInt(tempValue[tempValue.length-1][1]) + '℃': "--/--"}
           />
           <InfoTab 
             id="humid"
             title="Humi present"
             iconName="ios-water-sharp"
             IconComponent={Ionicons}
-            value={humidInit? humidValue[humidValue.length-1][1] + "%": "--/--"}
+            value={humidInit? parseInt(humidValue[humidValue.length-1][1]) + "%": "--/--"}
           />
         </View>
 
@@ -60,14 +60,14 @@ const HomeScreen = () => {
             title="Soil moisture"
             iconName="water"
             IconComponent={Entypo}
-            value={moistureInit? moistureValue[moistureValue.length-1][1]+"%": "--/--"}
+            value={moistureInit? parseInt(moistureValue[moistureValue.length-1][1])+"%": "--/--"}
           />
           <InfoTab 
             id="light"
             title="Light present"
             iconName="sunny-sharp"
             IconComponent={Ionicons}
-            value={lightInit? lightValue[lightValue.length-1][1] + "%": "--/--"}
+            value={lightInit? parseInt(lightValue[lightValue.length-1][1]) + "%": "--/--"}
           />
         </View>
       </View>

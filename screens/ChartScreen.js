@@ -1,4 +1,4 @@
-import { View, Text, Button } from 'react-native'
+import { View, Text, Alert } from 'react-native'
 import React, { useState } from 'react'
 import CalendarTab from '../components/CalendarTab';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -14,6 +14,9 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import InfoTabLite from '../components/InfoTabLite';
 import { getChartId } from '../redux/chosenChartSlice';
 import DateInputForm from '../components/DateInputForm';
+import { toChartData, transformData } from '../utils/helper';
+import Checkbox from 'expo-checkbox';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const chartTitle = {
   temp: "Temperature",
@@ -36,16 +39,31 @@ const ChartScreen = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [dateFnId, setDateFnId] = useState("start-date");
+  const [isSelected, setSelection] = useState(false);
 
+  const chartInputData = {
+    temp: tempValue,
+    humid: humidValue,
+    moisture: moistureValue,
+    light: lightValue,
+  }
+
+  const tfData = isSelected? transformData(chartInputData[chosenTab], startDate.getTime(), endDate.getTime()): transformData(chartInputData[chosenTab])
+  
+  const chartData = toChartData(tfData);
 
   const toggleModal = (id) => {
+    if (!isSelected) {
+      Alert.alert("Warning", "Time filter is not applied!")
+      return;
+    }
     setModalVisible(!isModalVisible);
     setDateFnId(id);
   };
 
   return (
     <View className="flex-1 items-center justify-center bg-white">
-      <View className="flex-row mx-2 px-2">
+      <View className="flex-row mx-2 px-2 mt-3">
         <CalendarTab 
          id="start-date"
          title="Start Date"
@@ -68,7 +86,7 @@ const ChartScreen = () => {
       <View className="flex-row m-1 mr-0.5 pl-0.5 pr-4 py-1 w-1/2">
         <InfoTabLite 
          id="temp"
-         value={tempInit? tempValue[tempValue.length-1][1] + '℃': "--/--"}
+         value={tempInit? parseInt(tempValue[tempValue.length-1][1]) + '℃': "--/--"}
          iconName="temperature-low"
          IconComponent={FontAwesome5}
         />
@@ -76,7 +94,7 @@ const ChartScreen = () => {
          id="humid"
          iconName="ios-water-sharp"
          IconComponent={Ionicons}
-         value={humidInit? humidValue[humidValue.length-1][1] + "%": "--/--"}
+         value={humidInit? parseInt(humidValue[humidValue.length-1][1]) + "%": "--/--"}
         />
       </View>
       <View className="flex-row m-1 ml-0.5 pr-4 py-1 w-1/2">
@@ -84,35 +102,37 @@ const ChartScreen = () => {
           id="moisture"
           iconName="water"
           IconComponent={Entypo}
-          value={moistureInit? moistureValue[moistureValue.length-1][1]+"%": "--/--"}
+          value={moistureInit? parseInt(moistureValue[moistureValue.length-1][1])+"%": "--/--"}
         />
         <InfoTabLite 
           id="light"
           iconName="sunny-sharp"
           IconComponent={Ionicons}
-          value={lightInit? lightValue[lightValue.length-1][1] + "%": "--/--"}
+          value={lightInit? parseInt(lightValue[lightValue.length-1][1]) + "%": "--/--"}
         />
       </View>
       </View>
 
       {/* Chart */}
-      <View className="pt-2 pb-2">
-        <Text 
-        className="font-bold text-lg text-center">
-          {chartTitle[chosenTab]} chart
-        </Text>
-        <AreaChart 
-         xMin={(new Date('2023-04-11T14:15:27Z')).getTime()} 
-         xMax={(new Date('2023-04-17T07:49:24Z')).getTime()} 
-         yMin={0} 
-         yMax={40}
-         chartData={[
-          { x: (new Date('2023-04-11T14:15:27Z')).getTime(), y: "31.0" },
-          { x: (new Date('2023-04-11T14:15:37Z')).getTime(), y: "31.0" },
-          { x: (new Date('2023-04-17T07:49:03Z')).getTime(), y: "31.2" },
-          { x: (new Date('2023-04-17T07:49:13Z')).getTime(), y: "31.2" },
-          { x: (new Date('2023-04-17T07:49:24Z')).getTime(), y: "31.0" },
-        ]} />
+      <View className="pt-2 pb-2 mt-2">
+        {chartData.length > 0?
+        <>
+          <Text 
+          className="font-bold text-xl text-center">
+            {chartTitle[chosenTab]} chart
+          </Text>
+          <AreaChart 
+          xMin={chartData[0]["x"]} 
+          xMax={chartData[chartData.length-1]["x"]} 
+          yMin={0} 
+          yMax={100}
+          chartData={chartData} /> 
+        </>
+         :
+        <View className="w-96 h-80">
+          <Text className="text-xl font-bold text-center mt-40">No data found</Text>
+        </View>
+        }
       </View>
 
       {/*popup modal*/}
@@ -125,6 +145,19 @@ const ChartScreen = () => {
          mode={dateFnId}
         />
       }
+
+      {/*Checkbox */}
+      <TouchableOpacity className="flex-row"
+       onPress={() => setSelection(!isSelected)}
+      >
+        <Checkbox
+          value={isSelected}
+          onValueChange={setSelection}
+          className="self-center"
+          color={isSelected ? 'green' : undefined}
+        />
+        <Text className="m-2">Apply time filter</Text>
+      </TouchableOpacity>
     </View>
   )
 }
