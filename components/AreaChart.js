@@ -22,7 +22,7 @@ function AreaChart({ xMin, xMax, yMin, yMax, chartData }) {
            labels: { visible: false}
          }}/>
         <Area theme={{ gradient: { from: { color: '#2dd4bf' }, to: { color: '#2dd4bf', opacity: 0.4 } }}} />
-        <Line theme={{ stroke: { color: '#0f766e', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
+        <Line theme={{ stroke: { color: '#022c22', width: 5 }, scatter: { default: { width: 4, height: 4, rx: 2 }} }} />
       </Chart>
     </View>
 

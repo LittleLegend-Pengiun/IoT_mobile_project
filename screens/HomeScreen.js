@@ -35,7 +35,7 @@ const HomeScreen = () => {
   const treeValue = useSelector(getTreeValue);
   
   return (
-    <View className="flex-1 items-center justify-center bg-white mb-1">
+    <View className="flex-1 items-center justify-center bg-white">
       <View className="pt-2 items-center mx-2">
         <View className="flex-row px-2">
           <InfoTab 

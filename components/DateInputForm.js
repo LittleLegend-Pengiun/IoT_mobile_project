@@ -13,7 +13,7 @@ function DateInputForm({toggle, startDate, endDate, setDate, mode}) {
         toggle(false);
 
         if ((mode == "start-date" && currentDate.getTime() > endDate.getTime()) || mode == "end-date" && startDate.getTime() > currentDate.getTime()) {
-            Alert.alert("Warning", "End date cannot be the day before Start Date")
+            Alert.alert("Warning", "End Date cannot be the day before Start Date")
             return;
         }
 
