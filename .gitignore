@@ -22,4 +22,4 @@ utils/secret.js
 
 # pacakge lock, yarn lock
 package-lock.json
-yarn-lock.json
+yarn.lock
