@@ -24,7 +24,7 @@ Try the app [here](https://expo.dev/@hoanganhleboy/Iot_app?serviceType=classic&d
   <br>
 </p>
 
-You can also download the .apk file [here](https://expo.dev/accounts/hoanganhleboy/projects/Iot_app/builds/883a08ca-aaae-4658-86e5-0c2c8d0eb37b)
+You can also download the .apk file [here](https://github.com/LittleLegend-Pengiun/IoT_mobile_project/releases)
 
 
 **Note:**
